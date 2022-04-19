@@ -9,9 +9,8 @@ const ffmpeg = createFFmpeg({
 
 const IS_COMPATIBLE = typeof SharedArrayBuffer === "function";
 
-function App() {
+const useLoadFfmpeg = () => {
   const [ready, setReady] = useState(false);
-  const [video, setVideo] = useState<File>();
 
   const load = async () => {
     await ffmpeg.load();
@@ -22,7 +21,17 @@ function App() {
     load();
   }, []);
 
+  return ready;
+};
+
+function App() {
+  const ready = useLoadFfmpeg();
+  const [video, setVideo] = useState<File>();
+  const [finished, setFinished] = useState(false);
+  const [converting, setConverting] = useState(false);
+
   const compressToWppSize = async () => {
+    setConverting(true);
     const inputStr = "test.mp4";
     const outputStr = "teste.mp4";
     // Write the file to memory
@@ -52,6 +61,8 @@ function App() {
       const data = ffmpeg.FS("readFile", "teste.mp4");
 
       // // Create a URL
+      setFinished(true);
+      setConverting(false);
       var link = document.createElement("a");
       link.href = window.URL.createObjectURL(
         new Blob([data.buffer], { type: "video/mp4" })
@@ -66,7 +77,6 @@ function App() {
       {video && (
         <video controls width="250" src={URL.createObjectURL(video)}></video>
       )}
-
       <input
         type="file"
         onChange={(e) => {
@@ -74,10 +84,10 @@ function App() {
           if (v) setVideo(v);
         }}
       />
-
       <h3>Result</h3>
-
       <button onClick={compressToWppSize}>Convert</button>
+      <br />f : {finished ? "y" : "n"}
+      <br />c : {converting ? "y" : "n"}
     </div>
   ) : (
     <p>Loading...</p>
