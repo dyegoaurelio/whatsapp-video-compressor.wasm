@@ -7,10 +7,11 @@ const ffmpeg = createFFmpeg({
   log: true,
 });
 
+const IS_COMPATIBLE = typeof SharedArrayBuffer === "function";
+
 function App() {
   const [ready, setReady] = useState(false);
   const [video, setVideo] = useState<File>();
-  const [gif, setGif] = useState("");
 
   const load = async () => {
     await ffmpeg.load();
@@ -21,32 +22,42 @@ function App() {
     load();
   }, []);
 
-  const convertToGif = async () => {
+  const compressToWppSize = async () => {
+    const inputStr = "test.mp4";
+    const outputStr = "teste.mp4";
     // Write the file to memory
     if (video) {
-      ffmpeg.FS("writeFile", "test.mp4", await fetchFile(video));
+      ffmpeg.FS("writeFile", inputStr, await fetchFile(video));
 
       // Run the FFMpeg command
       await ffmpeg.run(
+        "-y",
         "-i",
-        "test.mp4",
-        "-t",
-        "2.5",
-        "-ss",
-        "2.0",
-        "-f",
-        "gif",
-        "out.gif"
+        inputStr,
+        "-c:v",
+        "libx264",
+        "-b:v",
+        "16000k",
+        "-c:a",
+        "aac",
+        "-b:a",
+        "128k",
+
+        "-vsync",
+        "cfr",
+        outputStr
       );
 
-      // Read the result
-      const data = ffmpeg.FS("readFile", "out.gif");
+      // // Read the result
+      const data = ffmpeg.FS("readFile", "teste.mp4");
 
-      // Create a URL
-      const url = URL.createObjectURL(
-        new Blob([data.buffer], { type: "image/gif" })
+      // // Create a URL
+      var link = document.createElement("a");
+      link.href = window.URL.createObjectURL(
+        new Blob([data.buffer], { type: "video/mp4" })
       );
-      setGif(url);
+      link.download = "teste.mp4";
+      link.click();
     }
   };
 
@@ -66,9 +77,7 @@ function App() {
 
       <h3>Result</h3>
 
-      <button onClick={convertToGif}>Convert</button>
-
-      {gif && <img src={gif} width="250" />}
+      <button onClick={compressToWppSize}>Convert</button>
     </div>
   ) : (
     <p>Loading...</p>
