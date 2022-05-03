@@ -4,7 +4,7 @@ import {
   useLoadFfmpeg,
   useWriteVideo,
 } from "hooks";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ffmpeg, _time, outputStr } from "utils/ffmpeg";
 
 function App() {
@@ -44,7 +44,7 @@ function App() {
       <button onClick={handleStartConversion}>Convert</button>
       <br />f : {finished ? "y" : "n"}
       <br />c : {converting ? "y" : "n"}
-      <br />p : {progress.toFixed(2)}
+      <br />p : {progress} %
     </div>
   ) : (
     <p>Loading...</p>

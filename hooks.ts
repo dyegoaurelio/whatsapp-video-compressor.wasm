@@ -29,11 +29,12 @@ export const useLoadFfmpeg = () => {
 };
 
 export const useGetCompressProgress = (converting: boolean) => {
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState((0).toFixed(1));
   const interval = useRef<NodeJS.Timer>();
 
   const updateProgress = () => {
-    setProgress(_time / storedDuration);
+    const progress = (_time / storedDuration) * 100;
+    setProgress(progress.toFixed(1));
   };
 
   useEffect(() => {
