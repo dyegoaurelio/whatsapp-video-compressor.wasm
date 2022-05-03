@@ -1,59 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 // import './App.css';
 
-import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
-
-const MAX_BITS = 15.6 * 8000;
-const MAX_SIZE = 16e6;
-const AUDIO_BITRATE = 128;
-const regexDuration = /Duration: (\d{2})\:(\d{2})\:(\d{2})\.(\d{2})/gm;
-const regexTime = /time=(\d{2})\:(\d{2})\:(\d{2})\.(\d{2})/gm;
-
-const calculateLogSeconds = (matches: Array<string>) => {
-  const h = Number(matches[1]);
-  const m = Number(matches[2]);
-  const s = Number(matches[3]);
-  const ms = Number(matches[4]);
-  return h * 3600 + m * 60 + s + ms / 1000;
-};
-
-let watchDuration = true;
-let _duration = 0;
-let watchTime = false;
-let _time = 0;
-
-const updateDuration = (message: string) => {
-  const matchesDuration = regexDuration.exec(String(message));
-  if (matchesDuration != null) {
-    _duration = calculateLogSeconds(matchesDuration);
-  }
-};
-
-const updateTime = (message: string) => {
-  const matchesTime = regexTime.exec(String(message));
-  if (matchesTime != null) {
-    _time = calculateLogSeconds(matchesTime);
-  }
-};
-
-const ffmpeg = createFFmpeg({
-  corePath: "ffmpeg-core.js",
-  // log: true,
-  logger: ({ message }) => {
-    if (watchTime) updateTime(message);
-    if (watchDuration) updateDuration(message);
-  },
-});
-
-const IS_COMPATIBLE = typeof SharedArrayBuffer === "function";
-const inputStr = "test.mp4";
-const outputStr = "teste.mp4";
-
-function millisToMinutesAndSeconds(millis: number) {
-  var minutes = Math.floor(millis / 60000);
-  var seconds = ((millis % 60000) / 1000).toFixed(0);
-  return minutes + ":" + (parseFloat(seconds) < 10 ? "0" : "") + seconds;
-}
+import { fetchFile } from "@ffmpeg/ffmpeg";
+import { millisToMinutesAndSeconds } from "utils";
+import {
+  ffmpeg,
+  storedDuration,
+  _time,
+  setWatchTime,
+  getBitrate,
+  inputStr,
+  AUDIO_BITRATE,
+  outputStr,
+  setWatchDuration,
+} from "utils/ffmpeg";
 
 const useLoadFfmpeg = () => {
   const [ready, setReady] = useState(false);
@@ -70,19 +30,6 @@ const useLoadFfmpeg = () => {
   return ready;
 };
 
-const getDuration = async () => {
-  await ffmpeg.run("-i", inputStr);
-  return _duration;
-};
-
-let storedDuration = 0;
-const getBitrate = async () => {
-  const duration = await getDuration();
-  storedDuration = duration;
-  const bitrate = Math.floor(MAX_BITS / duration) - AUDIO_BITRATE;
-  return bitrate;
-};
-
 const useGetCompressProgress = (converting: boolean) => {
   const [progress, setProgress] = useState(0);
   const interval = useRef<NodeJS.Timer>();
@@ -93,11 +40,11 @@ const useGetCompressProgress = (converting: boolean) => {
 
   useEffect(() => {
     if (converting) {
-      watchTime = true;
+      setWatchTime(true);
       interval.current = setInterval(updateProgress, 2000);
     }
     if (!converting) {
-      watchTime = false;
+      setWatchTime(false);
       interval.current && clearInterval(interval.current);
     }
   }, [converting]);
@@ -168,7 +115,7 @@ const useWriteVideo = (video: File | undefined) => {
     (async () => {
       if (video) {
         ffmpeg.FS("writeFile", inputStr, await fetchFile(video));
-        watchDuration = true;
+        setWatchDuration(true);
       }
     })();
   }, [video]);
