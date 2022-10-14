@@ -54,12 +54,11 @@ export const useCompressToWppSize = (video: File | undefined) => {
   const [finished, setFinished] = useState(false);
   const [converting, setConverting] = useState(false);
 
-  useWriteVideo(video);
-
   const handleStartConversion = () => !converting && compressToWppSize();
 
   const compressToWppSize = async () => {
     if (video) {
+      console.log("aqui1");
       setConverting(true);
       setFinished(false);
       // Run the FFMpeg command
@@ -96,13 +95,17 @@ export const useCompressToWppSize = (video: File | undefined) => {
   return { finished, converting, handleStartConversion };
 };
 
-export const useWriteVideo = (video: File | undefined) => {
+export const useFfmpegVideo = (ffmpegReady: boolean) => {
+  const [video, setVideo] = useState<File>();
+
   useEffect(() => {
     (async () => {
-      if (video) {
+      if (video && ffmpegReady) {
         ffmpeg.FS("writeFile", inputStr, await fetchFile(video));
         setWatchDuration(true);
       }
     })();
-  }, [video]);
+  }, [video, ffmpegReady]);
+
+  return { video, setVideo };
 };

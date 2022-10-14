@@ -2,6 +2,7 @@ import {
   useCompressToWppSize,
   useGetCompressProgress,
   useLoadFfmpeg,
+  useFfmpegVideo,
 } from "hooks";
 import React, { useState, useEffect, useRef } from "react";
 import { extractFileName } from "utils";
@@ -9,13 +10,14 @@ import { ffmpeg, _time, outputStr } from "utils/ffmpeg";
 
 function App() {
   const ready = useLoadFfmpeg();
-  const [video, setVideo] = useState<File>();
-  const downloadRef = useRef<HTMLAnchorElement>(null);
+  const { video, setVideo } = useFfmpegVideo(ready);
 
   const { finished, converting, handleStartConversion } =
     useCompressToWppSize(video);
 
   const progress = useGetCompressProgress(converting);
+
+  const downloadRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (finished && !converting && downloadRef.current && video) {
