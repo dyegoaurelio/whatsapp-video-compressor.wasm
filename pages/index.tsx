@@ -41,7 +41,7 @@ function App() {
       <button onClick={handleStartConversion}>Convert</button>
       <br />f : {finished ? "y" : "n"}
       <br />c : {converting ? "y" : "n"}
-      <br />p : {progress} %
+      <br />p : {finished ? "100" : progress} %
     </div>
   ) : (
     <p>Loading...</p>
