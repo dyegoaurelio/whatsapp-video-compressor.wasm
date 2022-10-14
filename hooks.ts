@@ -58,7 +58,6 @@ export const useCompressToWppSize = (video: File | undefined) => {
 
   const compressToWppSize = async () => {
     if (video) {
-      console.log("aqui1");
       setConverting(true);
       setFinished(false);
       // Run the FFMpeg command
