@@ -30,7 +30,7 @@ function App() {
     }
   }, [finished, converting]);
 
-  return ready ? (
+  return (
     <div className="App">
       <input
         type="file"
@@ -40,26 +40,34 @@ function App() {
           if (v) setVideo(v);
         }}
       />
-      <h3>Result</h3>
-      <button disabled={!video || converting} onClick={handleStartConversion}>
-        Convert
-      </button>
-      <br />f : {finished ? "y" : "n"}
-      <br />c : {converting ? "y" : "n"}
-      <br />p : {finished ? "100" : progress} %
-      <br />
-      <br />
-      <a
-        style={{
-          display: finished ? "inline" : "none",
-        }}
-        ref={downloadRef}
-      >
-        DOWNLOAD
-      </a>
+
+      {ready ? (
+        <>
+          <h3>Result</h3>
+          <button
+            disabled={!video || converting}
+            onClick={handleStartConversion}
+          >
+            Convert
+          </button>
+          <br />f : {finished ? "y" : "n"}
+          <br />c : {converting ? "y" : "n"}
+          <br />p : {finished ? "100" : progress} %
+          <br />
+          <br />
+          <a
+            style={{
+              display: finished ? "inline" : "none",
+            }}
+            ref={downloadRef}
+          >
+            DOWNLOAD
+          </a>
+        </>
+      ) : (
+        <p>Loading ...</p>
+      )}
     </div>
-  ) : (
-    <p>Loading...</p>
   );
 }
 
