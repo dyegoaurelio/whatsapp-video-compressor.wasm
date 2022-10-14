@@ -34,13 +34,14 @@ function App() {
     <div className="App">
       <input
         type="file"
+        disabled={converting}
         onChange={(e) => {
           const v = e.target.files?.item(0);
           if (v) setVideo(v);
         }}
       />
       <h3>Result</h3>
-      <button disabled={!video} onClick={handleStartConversion}>
+      <button disabled={!video || converting} onClick={handleStartConversion}>
         Convert
       </button>
       <br />f : {finished ? "y" : "n"}
