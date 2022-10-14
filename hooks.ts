@@ -53,21 +53,10 @@ export const useGetCompressProgress = (converting: boolean) => {
 export const useCompressToWppSize = (video: File | undefined) => {
   const [finished, setFinished] = useState(false);
   const [converting, setConverting] = useState(false);
-  const [shouldConvertVideo, setShouldConvertVideo] = useState(false);
 
   useWriteVideo(video);
 
-  const handleStartConversion = () => {
-    setShouldConvertVideo(true);
-  };
-
-  const handleFinishConversion = () => {
-    setShouldConvertVideo(false);
-  };
-
-  useEffect(() => {
-    if (finished && shouldConvertVideo) handleFinishConversion();
-  }, [finished, shouldConvertVideo]);
+  const handleStartConversion = () => compressToWppSize();
 
   const compressToWppSize = async () => {
     if (video) {
@@ -103,10 +92,6 @@ export const useCompressToWppSize = (video: File | undefined) => {
       setConverting(false);
     }
   };
-
-  useEffect(() => {
-    if (video && shouldConvertVideo) compressToWppSize();
-  }, [video, shouldConvertVideo]);
 
   return { finished, converting, handleStartConversion };
 };
