@@ -3,12 +3,14 @@ import {
   useGetCompressProgress,
   useLoadFfmpeg,
 } from "hooks";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { extractFileName } from "utils";
 import { ffmpeg, _time, outputStr } from "utils/ffmpeg";
 
 function App() {
   const ready = useLoadFfmpeg();
   const [video, setVideo] = useState<File>();
+  const downloadRef = useRef<HTMLAnchorElement>(null);
 
   const { finished, converting, handleStartConversion } =
     useCompressToWppSize(video);
@@ -16,14 +18,14 @@ function App() {
   const progress = useGetCompressProgress(converting);
 
   useEffect(() => {
-    if (finished && !converting) {
+    if (finished && !converting && downloadRef.current && video) {
       // // Read the result
       const data = ffmpeg.FS("readFile", outputStr);
-      var link = document.createElement("a");
+      var link = downloadRef.current;
       link.href = window.URL.createObjectURL(
         new Blob([data.buffer], { type: "video/mp4" })
       );
-      link.download = outputStr;
+      link.download = `${extractFileName(video.name)}-WPP.mp4`;
       link.click();
     }
   }, [finished, converting]);
@@ -38,10 +40,22 @@ function App() {
         }}
       />
       <h3>Result</h3>
-      <button onClick={handleStartConversion}>Convert</button>
+      <button disabled={!video} onClick={handleStartConversion}>
+        Convert
+      </button>
       <br />f : {finished ? "y" : "n"}
       <br />c : {converting ? "y" : "n"}
       <br />p : {finished ? "100" : progress} %
+      <br />
+      <br />
+      <a
+        style={{
+          display: finished ? "inline" : "none",
+        }}
+        ref={downloadRef}
+      >
+        DOWNLOAD
+      </a>
     </div>
   ) : (
     <p>Loading...</p>

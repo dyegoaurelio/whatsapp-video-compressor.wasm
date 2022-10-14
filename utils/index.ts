@@ -11,3 +11,12 @@ export function millisToMinutesAndSeconds(millis: number) {
   var seconds = ((millis % 60000) / 1000).toFixed(0);
   return minutes + ":" + (parseFloat(seconds) < 10 ? "0" : "") + seconds;
 }
+
+const fileNameRegex = /(.+?)(\.[^.]*$|$)/;
+
+export function extractFileName(raw: string) {
+  const match = raw.match(fileNameRegex);
+  if (!match) return raw;
+
+  return match[1];
+}

@@ -7,8 +7,8 @@ export const AUDIO_BITRATE = 128;
 const regexDuration = /Duration: (\d{2})\:(\d{2})\:(\d{2})\.(\d{2})/gm;
 const regexTime = /time=(\d{2})\:(\d{2})\:(\d{2})\.(\d{2})/gm;
 
-export const inputStr = "test.mp4";
-export const outputStr = "teste.mp4";
+export const inputStr = "INPUT.mp4";
+export const outputStr = "OUTPUT.mp4";
 
 const IS_COMPATIBLE = typeof SharedArrayBuffer === "function";
 
