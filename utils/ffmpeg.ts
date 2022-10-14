@@ -12,6 +12,11 @@ export const outputStr = "OUTPUT.mp4";
 
 const IS_COMPATIBLE = typeof SharedArrayBuffer === "function";
 
+if (!IS_COMPATIBLE)
+  alert(
+    "Your current web browser version isn't compatible with this application!\nPlease update your web browser."
+  );
+
 let watchDuration = true;
 let _duration = 0;
 let watchTime = false;
