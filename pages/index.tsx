@@ -11,8 +11,6 @@ function App() {
   const ready = useLoadFfmpeg();
   const [video, setVideo] = useState<File>();
 
-  useWriteVideo(video);
-
   const { finished, converting, handleStartConversion } =
     useCompressToWppSize(video);
 

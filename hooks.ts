@@ -55,6 +55,8 @@ export const useCompressToWppSize = (video: File | undefined) => {
   const [converting, setConverting] = useState(false);
   const [shouldConvertVideo, setShouldConvertVideo] = useState(false);
 
+  useWriteVideo(video);
+
   const handleStartConversion = () => {
     setShouldConvertVideo(true);
   };
