@@ -2,6 +2,7 @@
 const shareFfmpeg = require("./shareFfmpeg.js");
 
 const nextConfig = {
+  generateEtags: false,
   // reactStrictMode: true,
   async headers() {
     return [
@@ -15,6 +16,15 @@ const nextConfig = {
           {
             key: "Cross-Origin-Opener-Policy",
             value: "same-origin",
+          },
+        ],
+      },
+      {
+        source: "/ffmpeg-core.(js|wasm|worker.js)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000",
           },
         ],
       },

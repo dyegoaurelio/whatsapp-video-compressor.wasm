@@ -45,7 +45,7 @@ const updateTime = (message: string) => {
 };
 
 export const ffmpeg = createFFmpeg({
-  corePath: "ffmpeg-core.js",
+  corePath: "ffmpeg-core.js?v=1",
   // log: true,
   logger: ({ message }) => {
     if (watchTime) updateTime(message);
