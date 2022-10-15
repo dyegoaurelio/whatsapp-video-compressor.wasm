@@ -19,6 +19,15 @@ function App() {
   const progress = useGetCompressProgress(converting);
 
   const downloadRef = useRef<HTMLAnchorElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!video && inputRef.current?.value) {
+      // update state when browser autofill input data
+      const v = inputRef.current.files?.item(0);
+      if (v) setVideo(v);
+    }
+  });
 
   useEffect(() => {
     if (finished && !converting && downloadRef.current && video) {
@@ -39,7 +48,9 @@ function App() {
       <Header pageReady={ready} />
       <input
         type="file"
+        id="video-upload"
         disabled={converting}
+        ref={inputRef}
         onChange={(e) => {
           const v = e.target.files?.item(0);
           if (v) setVideo(v);
