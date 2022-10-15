@@ -31,7 +31,7 @@ function App() {
 
   useEffect(() => {
     if (finished && !converting && downloadRef.current && video) {
-      // // Read the result
+      // // Download the result
       const data = ffmpeg.FS("readFile", outputStr);
       var link = downloadRef.current;
       link.href = window.URL.createObjectURL(
