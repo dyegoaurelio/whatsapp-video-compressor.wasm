@@ -31,6 +31,7 @@ function App() {
       link.download = `${extractFileName(video.name)}-WPP.mp4`;
       link.click();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finished, converting]);
 
   return (

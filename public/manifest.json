@@ -1,0 +1,9 @@
+{
+    "name": "whatsapp-video-compressor.wasm",
+    "short_name": "wpp video compressor",
+    "theme_color": "#FFFFFF",
+    "background_color": "#FFFFFF",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+  }
