@@ -1,3 +1,4 @@
+import Header from "components/Header";
 import {
   useCompressToWppSize,
   useGetCompressProgress,
@@ -34,6 +35,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header pageReady={ready} />
       <input
         type="file"
         disabled={converting}
