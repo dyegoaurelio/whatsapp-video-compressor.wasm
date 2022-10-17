@@ -7,10 +7,6 @@ const GithubRibbon = () => {
   return (
     <>
       <Head>
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/fork-corner/dist/fork-corner.min.css"
-        />
         <script
           type="text/javascript"
           src="https://cdn.jsdelivr.net/npm/fork-corner/dist/fork-corner.min.js"

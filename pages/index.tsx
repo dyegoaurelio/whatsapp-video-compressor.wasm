@@ -8,6 +8,7 @@ import {
 import React, { useState, useEffect, useRef } from "react";
 import { extractFileName } from "utils";
 import { ffmpeg, _time, outputStr } from "utils/ffmpeg";
+import classes from "styles/index.module.css";
 
 function App() {
   const ready = useLoadFfmpeg();
@@ -44,45 +45,69 @@ function App() {
   }, [finished, converting]);
 
   return (
-    <div className="App">
+    <div>
       <Header pageReady={ready} />
-      <input
-        type="file"
-        id="video-upload"
-        disabled={converting}
-        ref={inputRef}
-        onChange={(e) => {
-          const v = e.target.files?.item(0);
-          if (v) setVideo(v);
-        }}
-      />
+      <div className={classes.content}>
+        <div>
+          <h3>A tool for compressing videos in order to share on Whatsapp.</h3>
+          <section>
+            Often you need to send a video through Whatsapp, but it isn&apos;t
+            compatible or exceeds the size limit.
+          </section>
+          <section>
+            This tool converts the file into a compatible format within the{" "}
+            <b>20 MB</b> size limit.
+          </section>
+        </div>
+        <input
+          type="file"
+          id={classes.video_upload}
+          disabled={converting}
+          ref={inputRef}
+          onChange={(e) => {
+            const v = e.target.files?.item(0);
+            if (v) setVideo(v);
+          }}
+        />
 
-      {ready ? (
-        <>
-          <h3>Result</h3>
-          <button
-            disabled={!video || converting}
-            onClick={handleStartConversion}
-          >
-            Convert
-          </button>
-          <br />f : {finished ? "y" : "n"}
-          <br />c : {converting ? "y" : "n"}
-          <br />p : {finished ? "100" : progress} %
-          <br />
-          <br />
-          <a
-            style={{
-              display: finished ? "inline" : "none",
-            }}
-            ref={downloadRef}
-          >
-            DOWNLOAD
-          </a>
-        </>
-      ) : (
-        <p>Loading ...</p>
-      )}
+        <div>
+          <h4>Select a video above to convert it.</h4>
+          <ul>
+            <li>
+              All processing is done privately and securely on your machine!
+            </li>
+            <li>Now this website <b>works offline !</b> </li>
+          </ul>
+        </div>
+
+        {ready ? (
+          <>
+            <button
+              id={classes.convert_btn}
+              disabled={!video || converting}
+              onClick={handleStartConversion}
+            >
+              Convert
+            </button>
+            <h3>Results</h3>
+            <br />f : {finished ? "y" : "n"}
+            <br />c : {converting ? "y" : "n"}
+            <br />p : {finished ? "100" : progress} %
+            <br />
+            <br />
+            <a
+              style={{
+                display: finished ? "inline" : "none",
+              }}
+              ref={downloadRef}
+            >
+              DOWNLOAD
+            </a>
+          </>
+        ) : (
+          <p>Loading resources ...</p>
+        )}
+      </div>
     </div>
   );
 }

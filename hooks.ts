@@ -17,7 +17,7 @@ export const useLoadFfmpeg = () => {
   const [ready, setReady] = useState(false);
 
   const load = async () => {
-    await ffmpeg.load();
+    if (!ffmpeg.isLoaded()) await ffmpeg.load();
     setReady(true);
   };
 
@@ -110,7 +110,9 @@ export const useFfmpegVideo = (ffmpegReady: boolean) => {
 };
 
 export const useIsMobile = () => {
-  const [width, setWidth] = useState<number>(window.innerWidth);
+  const [width, setWidth] = useState<number>(
+    typeof window !== "undefined" ? window.innerWidth : 1000
+  );
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);

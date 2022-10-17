@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { FC, Suspense } from "react";
 
 const GithubRibbon = dynamic(() => import("components/GithubRibbon"), {
-  //   suspense: true,
+  suspense: true,
   ssr: false,
 });
 
