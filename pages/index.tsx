@@ -5,10 +5,11 @@ import {
   useLoadFfmpeg,
   useFfmpegVideo,
 } from "hooks";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { extractFileName } from "utils";
 import { ffmpeg, _time, outputStr } from "utils/ffmpeg";
 import classes from "styles/index.module.css";
+import ProgressBar from "components/ProgressBar";
 
 function App() {
   const ready = useLoadFfmpeg();
@@ -76,7 +77,9 @@ function App() {
             <li>
               All processing is done privately and securely on your machine!
             </li>
-            <li>Now this website <b>works offline !</b> </li>
+            <li>
+              Now this website <b>works offline !</b>{" "}
+            </li>
           </ul>
         </div>
 
@@ -92,7 +95,14 @@ function App() {
             <h3>Results</h3>
             <br />f : {finished ? "y" : "n"}
             <br />c : {converting ? "y" : "n"}
-            <br />p : {finished ? "100" : progress} %
+            <div className={classes.progressbar_wrapper}>
+              <div>
+                <ProgressBar
+                  bgcolor="black"
+                  completed={finished ? 100 : parseInt(progress)}
+                />
+              </div>
+            </div>
             <br />
             <br />
             <a

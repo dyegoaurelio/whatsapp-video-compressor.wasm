@@ -9,3 +9,16 @@
 .content h3 {
   margin-bottom: 5px;
 }
+
+.progressbar_wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.progressbar_wrapper > div{
+  width: 40%;
+  min-width: 300px;
+  max-width: 640px;
+  margin: 10px 20px;
+}
