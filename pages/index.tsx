@@ -98,7 +98,7 @@ function App() {
               Convert
             </button>
             )}
-            { (!converting || finished) && (
+            { (converting || finished) && (
               <div>
                 <h3>Result</h3>
                 <div className={classes.progressbar_wrapper}>
