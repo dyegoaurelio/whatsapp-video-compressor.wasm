@@ -63,7 +63,7 @@ function App() {
         <div className={classes.upload_container}>
           <div className={classes.upload_content}>
             <div>
-              <h4>Select a video above to convert it.</h4>
+              <h4>Select a video to convert it.</h4>
               <input
                 type="file"
                 id={classes.video_upload}
@@ -81,7 +81,7 @@ function App() {
                   All processing is done privately and securely on your machine!
                 </li>
                 <li>
-                  Now this website <b>works offline !</b>{" "}
+                  Now this website <b>works offline!</b>{" "}
                 </li>
               </ul>
             </div>
