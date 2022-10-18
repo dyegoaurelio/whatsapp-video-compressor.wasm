@@ -40,6 +40,7 @@
 .upload_content {
   padding: 1rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
