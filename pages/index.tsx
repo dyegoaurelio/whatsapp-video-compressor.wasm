@@ -60,6 +60,7 @@ function App() {
             <b>20 MB</b> size limit.
           </section>
         </div>
+        <h4>Select a video above to convert it.</h4>
         <input
           type="file"
           id={classes.video_upload}
@@ -67,12 +68,11 @@ function App() {
           ref={inputRef}
           onChange={(e) => {
             const v = e.target.files?.item(0);
-            if (v) setVideo(v);
+            if (v) setVideo(v)
           }}
         />
 
         <div>
-          <h4>Select a video above to convert it.</h4>
           <ul>
             <li>
               All processing is done privately and securely on your machine!
@@ -85,25 +85,29 @@ function App() {
 
         {ready ? (
           <>
+            {(video && !converting) && (
             <button
               id={classes.convert_btn}
-              disabled={!video || converting}
               onClick={handleStartConversion}
             >
               Convert
             </button>
-            <hr/>
-            <h3>Results</h3>
-            <br />f: {finished ? "y" : "n"}
-            <br />c: {converting ? "y" : "n"}
-            <div className={classes.progressbar_wrapper}>
-              <div>
-                <ProgressBar
-                  bgcolor="black"
-                  completed={finished ? 100 : parseInt(progress)}
-                />
+            )}
+            { (converting || finished) && (
+              <>
+              <hr/>
+              <h3>Result</h3>
+              <div className={classes.progressbar_wrapper}>
+                <div>
+                  <ProgressBar
+                    bgcolor="black"
+                    completed={finished ? 100 : parseInt(progress)}
+                    />
+                  {finished && <h4><b>Finished!</b></h4>}
+                </div>
               </div>
-            </div>
+              </>
+            ) }
             <br />
             <br />
             <a
@@ -112,7 +116,7 @@ function App() {
               }}
               ref={downloadRef}
             >
-              DOWNLOAD
+              <button><h4>DOWNLOAD</h4></button>
             </a>
           </>
         ) : (
