@@ -1,19 +1,12 @@
 import { useIsMobile } from "hooks";
-import Head from "next/head";
+import Script from "next/script";
 
 const GithubRibbon = () => {
   const isMobile = useIsMobile();
 
   return (
     <>
-      <Head>
-        <script
-          type="text/javascript"
-          src="https://cdn.jsdelivr.net/npm/fork-corner/dist/fork-corner.min.js"
-          defer
-          async
-        />
-      </Head>
+      <Script src="https://cdn.jsdelivr.net/npm/fork-corner/dist/fork-corner.min.js" />
       <div>
         <a
           href="https://github.com/dyegoaurelio/whatsapp-video-compressor.wasm"
