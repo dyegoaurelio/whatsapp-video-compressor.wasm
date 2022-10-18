@@ -26,6 +26,10 @@
   margin-block: 1rem;
 }
 
+.result_container {
+  margin-top: 2rem;
+}
+
 .upload_container {
   display: flex;
   flex-direction: column;

@@ -89,7 +89,7 @@ function App() {
         </div>
 
         {ready ? (
-          <>
+          <div className={classes.result_container}>
             {(video && !converting) && (
             <button
               id={classes.convert_btn}
@@ -98,20 +98,19 @@ function App() {
               Convert
             </button>
             )}
-            { (converting || finished) && (
-              <>
-              <hr/>
-              <h3>Result</h3>
-              <div className={classes.progressbar_wrapper}>
-                <div>
-                  <ProgressBar
-                    bgcolor="black"
-                    completed={finished ? 100 : parseInt(progress)}
-                    />
-                  {finished && <h4><b>Finished!</b></h4>}
+            { (!converting || finished) && (
+              <div>
+                <h3>Result</h3>
+                <div className={classes.progressbar_wrapper}>
+                  <div>
+                    <ProgressBar
+                      bgcolor="black"
+                      completed={finished ? 100 : parseInt(progress)}
+                      />
+                    {finished && <h4><b>Finished!</b></h4>}
+                  </div>
                 </div>
               </div>
-              </>
             ) }
             <br />
             <br />
@@ -123,7 +122,7 @@ function App() {
             >
               <button><h4>DOWNLOAD</h4></button>
             </a>
-          </>
+          </div>
         ) : (
           <p>Loading resources ...</p>
         )}
