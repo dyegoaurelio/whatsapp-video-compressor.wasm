@@ -60,27 +60,32 @@ function App() {
             <b>20 MB</b> size limit.
           </section>
         </div>
-        <h4>Select a video above to convert it.</h4>
-        <input
-          type="file"
-          id={classes.video_upload}
-          disabled={converting}
-          ref={inputRef}
-          onChange={(e) => {
-            const v = e.target.files?.item(0);
-            if (v) setVideo(v)
-          }}
-        />
-
-        <div>
-          <ul>
-            <li>
-              All processing is done privately and securely on your machine!
-            </li>
-            <li>
-              Now this website <b>works offline !</b>{" "}
-            </li>
-          </ul>
+        <div className={classes.upload_container}>
+          <div className={classes.upload_content}>
+            <div>
+              <h4>Select a video above to convert it.</h4>
+              <input
+                type="file"
+                id={classes.video_upload}
+                disabled={converting}
+                ref={inputRef}
+                onChange={(e) => {
+                  const v = e.target.files?.item(0);
+                  if (v) setVideo(v)
+                }}
+              />
+            </div>
+            <div>
+              <ul>
+                <li>
+                  All processing is done privately and securely on your machine!
+                </li>
+                <li>
+                  Now this website <b>works offline !</b>{" "}
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         {ready ? (
