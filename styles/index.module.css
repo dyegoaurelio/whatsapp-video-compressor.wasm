@@ -1,3 +1,10 @@
+.content {
+  font-family: sans-serif;
+  max-width: 86rem;
+  width: 80%;
+  margin-inline: auto;
+}
+
 .content b {
   white-space: nowrap;
 }

@@ -92,9 +92,10 @@ function App() {
             >
               Convert
             </button>
+            <hr/>
             <h3>Results</h3>
-            <br />f : {finished ? "y" : "n"}
-            <br />c : {converting ? "y" : "n"}
+            <br />f: {finished ? "y" : "n"}
+            <br />c: {converting ? "y" : "n"}
             <div className={classes.progressbar_wrapper}>
               <div>
                 <ProgressBar
