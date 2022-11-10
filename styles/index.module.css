@@ -55,3 +55,9 @@
 .upload_content h4 {
   margin-top: 0;
 }
+
+#convert_btn {
+  font-size: medium;
+  padding: 5px;
+  margin-left: 1.5rem;
+}

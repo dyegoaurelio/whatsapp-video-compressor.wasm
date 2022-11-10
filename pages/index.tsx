@@ -95,7 +95,7 @@ function App() {
               id={classes.convert_btn}
               onClick={handleStartConversion}
             >
-              Convert
+              CONVERT
             </button>
             )}
             { (converting || finished) && (
