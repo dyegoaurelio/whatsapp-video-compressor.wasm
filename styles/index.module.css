@@ -34,20 +34,22 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
   margin-inline: auto;
   margin-top: 2rem;
-  padding: 1rem;
   outline: 1px solid black;
   border-radius: .5rem;
+  padding: 1.5rem;
 }
 
 .upload_content {
-  padding: 1rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
+  width: 100%;
+  overflow:hidden;
 }
 
 .upload_content h4 {
