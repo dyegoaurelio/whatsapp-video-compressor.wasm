@@ -63,7 +63,7 @@ function App() {
         <div className={classes.upload_container}>
           <div className={classes.upload_content}>
             <div>
-              <h4>Select a video to convert it.</h4>
+              <h4>Select a video to convert.</h4>
               <input
                 type="file"
                 id={classes.video_upload}
