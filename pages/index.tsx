@@ -46,7 +46,7 @@ function App() {
   }, [finished, converting]);
 
   return (
-    <div>
+    <div id={classes.page} >
       <Header pageReady={ready} />
       <div className={classes.content}>
         <div>
@@ -71,7 +71,7 @@ function App() {
                 ref={inputRef}
                 onChange={(e) => {
                   const v = e.target.files?.item(0);
-                  if (v) setVideo(v)
+                  if (v) setVideo(v);
                 }}
               />
             </div>
@@ -90,37 +90,34 @@ function App() {
 
         {ready ? (
           <div className={classes.result_container}>
-            {(video && !converting) && (
             <button
-              id={classes.convert_btn}
+              className={classes.cta_btn}
+              disabled={!video || converting}
               onClick={handleStartConversion}
             >
               CONVERT
             </button>
-            )}
-            { (converting || finished) && (
+            {(converting || finished) && (
               <div>
                 <h3>Result</h3>
                 <div className={classes.progressbar_wrapper}>
                   <div>
                     <ProgressBar
-                      bgcolor="black"
+                      bgcolor={finished ? "#2cb742" : "black"}
                       completed={finished ? 100 : parseInt(progress)}
-                      />
-                    {finished && <h4><b>Finished!</b></h4>}
+                    />
+                    {finished && <h3>Finished!</h3>}
                   </div>
                 </div>
               </div>
-            ) }
-            <br />
-            <br />
+            )}
             <a
               style={{
                 display: finished ? "inline" : "none",
               }}
               ref={downloadRef}
             >
-              <button><h4>DOWNLOAD</h4></button>
+              <button className={classes.cta_btn}>DOWNLOAD</button>
             </a>
           </div>
         ) : (

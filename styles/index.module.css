@@ -1,3 +1,7 @@
+#page{
+  margin-bottom: 210px;
+}
+
 .content {
   font-family: sans-serif;
   max-width: 86rem;
@@ -60,7 +64,7 @@
   margin-top: 0;
 }
 
-#convert_btn {
+.cta_btn {
   font-size: medium;
   padding: 5px;
   margin-left: 1.5rem;
