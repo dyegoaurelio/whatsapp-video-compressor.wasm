@@ -1,7 +1,7 @@
 #  whatsapp-video-compressor.wasm
 
 
-A simple website to compress videos targeting Whatsapp size limit
+A simple Next.js website to compress videos targeting Whatsapp size limit
 
 Everything is done client side, leveraging [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm), a pure Webassembly / Javascript port of FFmpeg.
 
@@ -14,3 +14,10 @@ Everything is done client side, leveraging [ffmpeg.wasm](https://github.com/ffmp
 ## Limitations:
 
 - Slow, especially on mobile
+
+
+## Running locally
+After cloning the repository and installing the dependencies, just run 
+```bash
+npm run dev
+```
